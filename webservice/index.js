@@ -1,13 +1,15 @@
 const express = require("express");
+const cors = require("cors");
 const axios = require("axios");
 const app = express();
 const port = 5000;
 
+app.use(cors({ origin: "*" }));
+
 app.get("/movies", async (req, res) => {
-  const url = buildURL(req.query.search);
+  const url = buildURL(req.query.search, req.get("apikey"));
   const response = await handleSearch(url);
   const filteredResults = reduceResults(response);
-  res.set("Access-Control-Allow-Origin", '*');
   res.send(filteredResults);
 });
 
@@ -24,16 +26,16 @@ const handleSearch = async (url) => {
   return response.results;
 };
 
-const buildURL = (query) => {
+const buildURL = (query, api_key) => {
   console.log("Building URL from query: ", query);
   const endpoint = "https://api.themoviedb.org/3/search/movie?";
   const options = {
-    api_key: "3779faf9ee7602e93ec15f01aed5f68a", //req.get("api-key"),
     language: "en-US",
     page: 1,
     include_adult: false,
     region: "US",
     query,
+    api_key,
   };
   let acc = "";
   for (const option in options) {

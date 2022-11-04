@@ -32,7 +32,7 @@ export default {
   methods: {
     search (query) {
       const url = 'http://localhost:5000/movies?search=' + query
-      axios.get(url).then(response => (this.films = response.data))
+      axios.get(url, { headers: { apikey: '3779faf9ee7602e93ec15f01aed5f68a' } }).then(response => (this.films = response.data))
     }
   }
 }
