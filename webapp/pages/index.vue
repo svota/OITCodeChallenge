@@ -9,7 +9,7 @@
     </div>
     <ul>
       <li v-for="film in films" :key="film.id">
-        <p>
+        <p class="filmTitle">
           {{ film.title }}
         </p>
         <img :src="film.poster_image_url">
@@ -33,8 +33,6 @@ export default {
   methods: {
     search (query) {
       const url = 'http://localhost:5000/movies?search=' + query
-      // eslint-disable-next-line no-console
-      console.log(process.env)
       axios
         .get(url, { headers: { apikey: '3779faf9ee7602e93ec15f01aed5f68a' } })
         .then(response => (this.films = response.data))
@@ -49,6 +47,9 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.filmTitle {
+  text-align: center;
 }
 ul {
   display: flex;
