@@ -60,6 +60,11 @@ const reduceResults = (results) => {
 };
 
 const reduceValue = (val) => {
-  const { title, overview, popularity, poster_path } = val;
-  return { title, overview, popularity, poster_path };
+  const { title, id, popularity, poster_path, vote_count } = val;
+  return {
+    title,
+    movie_id: id,
+    popularity_summary: `${popularity} based on ${vote_count} votes`,
+    poster_image_url: "https://image.tmdb.org/t/p/w200" + poster_path,
+  };
 };
