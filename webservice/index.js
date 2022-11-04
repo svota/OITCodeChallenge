@@ -3,14 +3,11 @@ const axios = require("axios");
 const app = express();
 const port = 5000;
 
-app.get("/", (_req, res) => {
-  res.sendFile("index.html", { root: __dirname });
-});
-
 app.get("/movies", async (req, res) => {
   const url = buildURL(req.query.search);
   const response = await handleSearch(url);
   const filteredResults = reduceResults(response);
+  res.set("Access-Control-Allow-Origin", '*');
   res.send(filteredResults);
 });
 
